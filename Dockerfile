@@ -6,7 +6,10 @@ WORKDIR /mart-frontend
 COPY package.json ./
 COPY package-lock.json ./
 
-RUN npm install -g npm@10.5.2
+# Set NODE_ENV to development to install dev dependencies
+ENV NODE_ENV=development
+
+RUN npm install
 
 COPY . .
 
@@ -18,11 +21,8 @@ FROM nginx:alpine
 # Remove default NGINX website
 RUN rm -rf /usr/share/nginx/html/*
 
-
-
 # Copy built React app from previous stage to NGINX default public folder
 COPY --from=build /mart-frontend/build /usr/share/nginx/html
-
 
 # Expose port 80
 EXPOSE 80
