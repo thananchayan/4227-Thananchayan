@@ -6,7 +6,7 @@ WORKDIR /mart-frontend
 COPY package.json ./
 COPY package-lock.json ./
 
-RUN npm install
+npm install -g npm@10.5.2
 
 COPY . .
 
